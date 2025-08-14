@@ -74,6 +74,10 @@ app.post('/api/answer', async (req, res) => {
   }
 });
 
+app.get('/', (req, res) => {
+  res.send('Backend is running! Use /api/answer for AI responses.');
+});
+
 const PORT = process.env.PORT || 5000;
 
 app.listen(PORT, () =>

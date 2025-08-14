@@ -8,7 +8,7 @@ const promptBtns = Array.from(document.querySelectorAll('.prompt'));
 const exampleBtn = document.getElementById('exampleBtn');
 
 // Auto-set backend path
-backendInput.value = `http://localhost:3000/api/answer`;
+backendInput.value = `https://dsa-qa-live.onrender.com/api/answer`;
 
 function scrollToBottom(){ messagesEl.scrollTop = messagesEl.scrollHeight; }
 
