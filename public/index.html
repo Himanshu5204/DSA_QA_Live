@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>DSA AI Chat</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="app">
+    <aside class="sidebar">
+      <div class="brand">DSA AI Tutor</div>
+      <div class="sidebar-section">
+        <h4>Quick Prompts</h4>
+        <button class="prompt">Explain binary search</button>
+        <button class="prompt">Time complexity of merge sort</button>
+        <button class="prompt">Space complexity of merge sort</button>
+        <button class="prompt">Write stack implementation in C++</button>
+        <button class="prompt">Write queue implementation in C++</button>
+      </div>
+      <div class="sidebar-section">
+        <h4>Options</h4>
+        <label class="option">
+          <span>Backend URL</span>
+          <input id="backendUrl" placeholder="/api/answer" />
+        </label>
+        <button id="clearHistory">Clear History</button>
+      </div>
+      <div class="sidebar-foot">Tip: Connect your backend to POST /api/answer → JSON { question }</div>
+    </aside>
+
+    <main class="chat-area">
+      <header class="chat-header">
+        <div class="title">Ask DSA questions — get clear answers</div>
+        <div class="controls">
+          <select id="toneSelect" title="Answer style">
+            <option value="concise">Concise</option>
+            <option value="detailed">Detailed</option>
+            <option value="step">Step-by-step</option>
+          </select>
+          <button id="themeToggle" title="Toggle Dark/Light Mode">🌙</button>
+        </div>
+      </header>
+
+      <ul id="messages" class="messages" aria-live="polite"></ul>
+
+      <form id="composer" class="composer" autocomplete="off">
+        <textarea id="input" rows="1" placeholder="Type your DSA question..." required></textarea>
+        <div class="composer-actions">
+          <button type="button" id="exampleBtn">Example</button>
+          <button type="submit" id="sendBtn">Send</button>
+        </div>
+      </form>
+    </main>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
