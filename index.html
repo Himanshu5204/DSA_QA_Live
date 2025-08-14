@@ -8,7 +8,9 @@
 </head>
 <body>
   <div class="app">
+    <!-- Sidebar -->
     <aside class="sidebar">
+      <button class="sidebar-close" title="Close Sidebar">✕</button>
       <div class="brand">DSA AI Tutor</div>
       <div class="sidebar-section">
         <h4>Quick Prompts</h4>
@@ -29,8 +31,10 @@
       <div class="sidebar-foot">Tip: Connect your backend to POST /api/answer → JSON { question }</div>
     </aside>
 
+    <!-- Chat Area -->
     <main class="chat-area">
       <header class="chat-header">
+        <button id="sidebarToggle" class="sidebar-toggle" title="Open Quick Prompts">☰</button>
         <div class="title">Ask DSA questions — get clear answers</div>
         <div class="controls">
           <select id="toneSelect" title="Answer style">
