@@ -3,19 +3,34 @@ import cors from 'cors';
 import path from 'path';
 import { fileURLToPath } from 'url';
 import 'dotenv/config';
-import { GoogleGenerativeAI } from "@google/generative-ai";
+import { GoogleGenerativeAI } from '@google/generative-ai';
 import 'dotenv/config';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 const app = express();
+const cors = require('cors');
+app.use(
+  cors({
+    origin: 'https://himanshu5204.github.io/DSA_QA_Live/'
+  })
+);
 const genAI = new GoogleGenerativeAI(process.env.GEMINI_DSA_API_KEY);
 
 let History = [];
 
 app.use(cors());
 app.use(express.json());
+
+app.use((req, res, next) => {
+  res.setHeader(
+    'Content-Security-Policy',
+    "default-src 'self' https://your-github-username.github.io; connect-src 'self' https://your-backend-service.onrender.com; font-src 'self' data: https://fonts.gstatic.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; script-src 'self' 'unsafe-inline' https://your-github-username.github.io; img-src 'self' data:"
+  );
+
+  next();
+});
 
 // Serve frontend
 app.use(express.static(path.join(__dirname, 'public')));
@@ -25,15 +40,15 @@ app.post('/api/answer', async (req, res) => {
   try {
     const { question } = req.body;
 
-    console.log("API Key Loaded:", process.env.GEMINI_DSA_API_KEY); // Test
-    console.log("Incoming request body:", req.body);
+    console.log('API Key Loaded:', process.env.GEMINI_DSA_API_KEY); // Test
+    console.log('Incoming request body:', req.body);
 
     // Add user question to history
     History.push({ role: 'user', parts: [{ text: question }] });
 
     // Get model
     const model = genAI.getGenerativeModel({
-      model: "gemini-1.5-flash",
+      model: 'gemini-1.5-flash',
       systemInstruction: `You are a data structure and algorithm expert and instructor.
         You will help the user understand and implement various DSA concepts with simple explanations and code snippets.
         Use Java by default unless user specifies another language.
@@ -46,13 +61,13 @@ app.post('/api/answer', async (req, res) => {
     });
 
     // Send question
-    console.log("Before Gemini API call");
+    console.log('Before Gemini API call');
     const response = await chat.sendMessage(question);
-    console.log("After Gemini API call");
-    console.log("Full Gemini response:", JSON.stringify(response, null, 2));
+    console.log('After Gemini API call');
+    console.log('Full Gemini response:', JSON.stringify(response, null, 2));
 
     // Try to extract answer robustly
-    let answer = "No answer available.";
+    let answer = 'No answer available.';
     if (response && response.response) {
       if (typeof response.response.text === 'function') {
         answer = await response.response.text();
@@ -67,7 +82,6 @@ app.post('/api/answer', async (req, res) => {
     History.push({ role: 'model', parts: [{ text: answer }] });
 
     res.json({ answer });
-
   } catch (err) {
     console.error(err);
     res.status(500).json({ answer: 'Error generating answer.' });
@@ -80,6 +94,4 @@ app.get('/', (req, res) => {
 
 const PORT = process.env.PORT || 5000;
 
-app.listen(PORT, () =>
-  console.log(`🚀 Server running at http://localhost:${PORT}`)
-);
+app.listen(PORT, () => console.log(`🚀 Server running at http://localhost:${PORT}`));
