@@ -41,7 +41,7 @@ closeBtn.addEventListener('click', () => {
   sidebar.classList.remove('open');
   toggleBtn.style.display = 'block';
 });
-prompts.forEach(btn => {
+prompts.forEach((btn) => {
   btn.addEventListener('click', () => {
     sidebar.classList.remove('open');
     toggleBtn.style.display = 'block';
@@ -51,7 +51,9 @@ prompts.forEach(btn => {
 });
 
 // Messages
-function scrollToBottom() { messagesEl.scrollTop = messagesEl.scrollHeight; }
+function scrollToBottom() {
+  messagesEl.scrollTop = messagesEl.scrollHeight;
+}
 function renderMessage(role, text) {
   const li = document.createElement('li');
   li.className = 'message ' + (role === 'user' ? 'user' : 'assistant');
@@ -59,9 +61,11 @@ function renderMessage(role, text) {
   li.querySelector('.content').innerHTML = markedSafe(text);
   messagesEl.appendChild(li);
   scrollToBottom();
+  return li; // ✅ return so we can update it later
 }
+
 function markedSafe(text) {
-  return text.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/\n/g,'<br>');
+  return text.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/\n/g, '<br>');
 }
 
 // Typing animation
@@ -79,8 +83,8 @@ function showTyping() {
 
 // History
 function saveHistory() {
-  const items = Array.from(messagesEl.querySelectorAll('.message')).map(m=>({
-    role: m.classList.contains('user')?'user':'assistant',
+  const items = Array.from(messagesEl.querySelectorAll('.message')).map((m) => ({
+    role: m.classList.contains('user') ? 'user' : 'assistant',
     text: m.querySelector('.content')?.innerText || ''
   }));
   localStorage.setItem('dsa_chat_history', JSON.stringify(items));
@@ -90,45 +94,65 @@ function loadHistory() {
   if (!data) return;
   try {
     const items = JSON.parse(data);
-    items.forEach(it => renderMessage(it.role, it.text));
-  } catch(e){ console.warn(e); }
+    items.forEach((it) => renderMessage(it.role, it.text));
+  } catch (e) {
+    console.warn(e);
+  }
 }
-clearBtn.addEventListener('click', ()=> { localStorage.removeItem('dsa_chat_history'); messagesEl.innerHTML=''; });
+clearBtn.addEventListener('click', () => {
+  localStorage.removeItem('dsa_chat_history');
+  messagesEl.innerHTML = '';
+});
 loadHistory();
 
 // Quick prompts
-promptBtns.forEach(btn => btn.addEventListener('click', ()=> { input.value=btn.innerText; input.focus(); }));
-exampleBtn.addEventListener('click', ()=> { input.value='Show me a code example for quicksort in JavaScript'; input.focus(); });
+promptBtns.forEach((btn) =>
+  btn.addEventListener('click', () => {
+    input.value = btn.innerText;
+    input.focus();
+  })
+);
+exampleBtn.addEventListener('click', () => {
+  input.value = 'Show me a code example for quicksort in JavaScript';
+  input.focus();
+});
 
 // Form submit
-form.addEventListener('submit', async e=>{
+form.addEventListener('submit', async (e) => {
   e.preventDefault();
   const question = input.value.trim();
   if (!question) return;
   renderMessage('user', question);
-  input.value='';
-  const typingNode = showTyping();
+  input.value = '';
+  // Render assistant bubble immediately with "Thinking..."
+  const thinkingBubble = renderMessage('assistant', '💭 Thinking...');
+
+  // Now fetch from backend
   try {
     const res = await fetch(backendInput.value, {
-      method:'POST',
-      headers:{'Content-Type':'application/json'},
-      body:JSON.stringify({question})
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ question })
     });
-    if(!res.ok) throw new Error('Server returned ' + res.status);
+
+    if (!res.ok) throw new Error('Server returned ' + res.status);
     const json = await res.json();
-    typingNode.remove();
-    renderMessage('assistant', json.answer || 'No answer returned');
+
+    // Replace thinking text with real answer
+    thinkingBubble.querySelector('.content').innerHTML = markedSafe(json.answer || 'No answer returned');
     saveHistory();
-  } catch(err){
+  } catch (err) {
     console.error(err);
-    typingNode.remove();
-    renderMessage('assistant','Error: ' + (err.message||err));
+    thinkingBubble.querySelector('.content').innerHTML = '❌ Error: ' + (err.message || err);
   }
 });
 
 // Enter key
-input.addEventListener('keydown', e=>{
-  if(e.key==='Enter' && !e.shiftKey){ e.preventDefault(); form.requestSubmit(); }
+input.addEventListener('keydown', (e) => {
+  if (e.key === 'Enter' && !e.shiftKey) {
+    e.preventDefault();
+    form.requestSubmit();
+  }
 });
 
 window._dsaChat = { renderMessage, saveHistory };
