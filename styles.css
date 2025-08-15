@@ -183,5 +183,5 @@ body {
 }
 
 /* Extra mobile toggle */
-.sidebar-toggle { display:block; position: absolute; top:23px; left:35px; z-index:15; }
+.sidebar-toggle { display:block; position: absolute; top:55px; left:35px; z-index:15; }
 @media(min-width:901px){ .sidebar-toggle { display:none; } }
