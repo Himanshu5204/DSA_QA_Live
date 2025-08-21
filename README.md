@@ -1,4 +1,4 @@
-<img width="1915" height="862" alt="image" src="https://github.com/user-attachments/assets/d52a1011-e0a7-47b1-88fa-33bc269c94a3" />📘 DSA_QA_LIVE
+📘 DSA_QA_LIVE
 
 An interactive platform to learn, practice, and revise Data Structures & Algorithms (DSA) through live Q&A style content.
 This project helps students and developers strengthen their problem-solving skills with real examples, explanations, and structured solutions.
