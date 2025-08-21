@@ -1,4 +1,4 @@
-📘 DSA_QA_LIVE
+<img width="1915" height="862" alt="image" src="https://github.com/user-attachments/assets/d52a1011-e0a7-47b1-88fa-33bc269c94a3" />📘 DSA_QA_LIVE
 
 An interactive platform to learn, practice, and revise Data Structures & Algorithms (DSA) through live Q&A style content.
 This project helps students and developers strengthen their problem-solving skills with real examples, explanations, and structured solutions.
@@ -32,12 +32,13 @@ DSA_QA_LIVE/
 │── styles.css       # Styling
 │── app.js           # Interactive logic
 │── assets/          # Images/icons
-│── problems/        # Q&A content files
+│── backend/        # Q&A content files
 │── README.md        # Project documentation
 
 📸 Preview
 
-(Add a screenshot of your live site here – you can drag & drop it in GitHub README)
+<img width="1915" height="862" alt="Screenshot 2025-08-21 204752" src="https://github.com/user-attachments/assets/aa15c758-0936-4e87-9a75-d812a8fc343e" />
+<img width="1919" height="860" alt="image" src="https://github.com/user-attachments/assets/96e69fa0-a1a2-4212-b8ac-f5d95838a5a9" />
 
 🤝 Contribution
 
