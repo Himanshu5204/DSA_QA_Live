@@ -40,6 +40,36 @@ DSA_QA_LIVE/
 <img width="1915" height="862" alt="Screenshot 2025-08-21 204752" src="https://github.com/user-attachments/assets/aa15c758-0936-4e87-9a75-d812a8fc343e" />
 <img width="1919" height="860" alt="image" src="https://github.com/user-attachments/assets/96e69fa0-a1a2-4212-b8ac-f5d95838a5a9" />
 
+🧠 What I Learned
+
+During the development of DSA_QA_LIVE, I explored different tools and technologies beyond just HTML/CSS/JS.
+
+🔹 Google Generative AI (Gemini API) – experimented with integrating AI-powered Q&A generation
+
+Used system instruction and custom prompts to structure answers
+
+Learned how to fine-tune responses for better clarity & relevance
+
+🔹 Improved my understanding of frontend-backend interaction
+
+How to fetch and display Q&A dynamically
+
+Handling static deployment on GitHub Pages and API requests via Render
+
+🔹 Practiced project structuring
+
+Keeping frontend/ and backend/ organized
+
+Maintaining clean separation of concerns
+
+🔹 Enhanced my skills in documentation & open-source practices
+
+Writing a good README
+
+Using GitHub flow (fork, branch, pull request) for collaboration
+
+🔹 Learn to deploy static pages on github and backend on render website
+
 🤝 Contribution
 
 Want to add new problems or improve explanations?
